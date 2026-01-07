@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<style>
+body{font-family:Arial;background:#2563eb;height:100vh;display:flex;justify-content:center;align-items:center;margin:0}
+.box{background:#fff;padding:20px;border-radius:10px;width:90%;max-width:350px}
+input,button{width:100%;padding:12px;margin-top:10px;font-size:16px}
+button{background:#2563eb;color:#fff;border:none;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Admin Login</h2>
+<input id="u" placeholder="Username">
+<input id="p" type="password" placeholder="Password">
+<button onclick="l()">Login</button>
+<p>admin / admin123</p>
+</div>
+<script>
+function l(){
+if(u.value=="admin" && p.value=="admin123"){
+location.href="dashboard.html";
+}else{alert("Wrong login");}
+}
+</script>
+</body>
+</html>
