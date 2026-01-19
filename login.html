@@ -1,29 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login</title>
+<title>AgriStack Login</title>
+
 <style>
-body{font-family:Arial;background:#2563eb;height:100vh;display:flex;justify-content:center;align-items:center;margin:0}
-.box{background:#fff;padding:20px;border-radius:10px;width:90%;max-width:350px}
-input,button{width:100%;padding:12px;margin-top:10px;font-size:16px}
-button{background:#2563eb;color:#fff;border:none;border-radius:5px}
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(#0f5c3a,#0b3f29);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.login-box{
+  background:#fff;
+  width:95%;
+  max-width:380px;
+  border-radius:10px;
+  padding:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:10px;
+}
+.logo img{
+  width:70px;
+}
+
+h2{
+  text-align:center;
+  margin:10px 0 15px;
+}
+
+.role{
+  display:flex;
+  border:1px solid #0f5c3a;
+  border-radius:6px;
+  overflow:hidden;
+  margin-bottom:15px;
+}
+.role button{
+  flex:1;
+  padding:8px;
+  border:none;
+  background:#fff;
+  cursor:pointer;
+}
+.role button.active{
+  background:#0f5c3a;
+  color:#fff;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+
+.password{
+  position:relative;
+}
+.password span{
+  position:absolute;
+  right:10px;
+  top:10px;
+  cursor:pointer;
+}
+
+.captcha-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:10px;
+}
+.captcha-img{
+  background:#eee;
+  padding:8px 12px;
+  font-weight:bold;
+  letter-spacing:2px;
+  user-select:none;
+}
+.refresh{
+  cursor:pointer;
+  font-size:18px;
+}
+
+button.login{
+  width:100%;
+  padding:10px;
+  background:#0f5c3a;
+  color:#fff;
+  border:none;
+  border-radius:5px;
+  font-size:16px;
+  cursor:pointer;
+  opacity:.5;
+}
+button.login.active{
+  opacity:1;
+}
+
+.forgot{
+  text-align:center;
+  margin-top:8px;
+  font-size:14px;
+}
 </style>
 </head>
+
 <body>
-<div class="box">
-<h2>Admin Login</h2>
-<input id="u" placeholder="Username">
-<input id="p" type="password" placeholder="Password">
-<button onclick="l()">Login</button>
-<p>admin / admin123</p>
+
+<div class="login-box">
+  <div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg">
+  </div>
+
+  <h2>AgriStack Login</h2>
+
+  <div class="role">
+    <button class="active" onclick="setRole(this)">Official</button>
+    <button onclick="setRole(this)">Farmer</button>
+  </div>
+
+  <input type="text" placeholder="User ID / Mobile / Email">
+
+  <div class="password">
+    <input type="password" id="pass" placeholder="Password">
+    <span onclick="togglePass()">👁️</span>
+  </div>
+
+  <div class="captcha-box">
+    <div class="captcha-img" id="captchaText"></div>
+    <div class="refresh" onclick="generateCaptcha()">🔄</div>
+  </div>
+
+  <input type="text" id="captchaInput" placeholder="Enter Captcha" oninput="checkCaptcha()">
+
+  <button class="login" id="loginBtn">Log In</button>
+
+  <div class="forgot">Forgot Password?</div>
 </div>
+
 <script>
-function l(){
-if(u.value=="admin" && p.value=="admin123"){
-location.href="dashboard.html";
-}else{alert("Wrong login");}
+let captcha="";
+
+function generateCaptcha(){
+  captcha = Math.random().toString(36).substring(2,7);
+  document.getElementById("captchaText").innerText = captcha;
+  document.getElementById("captchaInput").value="";
+  document.getElementById("loginBtn").classList.remove("active");
+}
+generateCaptcha();
+
+function checkCaptcha(){
+  let val = document.getElementById("captchaInput").value;
+  if(val === captcha){
+    document.getElementById("loginBtn").classList.add("active");
+  }else{
+    document.getElementById("loginBtn").classList.remove("active");
+  }
+}
+
+function togglePass(){
+  let p = document.getElementById("pass");
+  p.type = p.type==="password" ? "text" : "password";
+}
+
+function setRole(btn){
+  document.querySelectorAll(".role button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
 }
 </script>
+
 </body>
 </html>
