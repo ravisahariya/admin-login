@@ -1,13 +1,1 @@
-<script>
-let USER = "admin";
-let PASS = localStorage.getItem("adminPass") || "admin123";
 
-function login(){
-  if(user.value===USER && pass.value===PASS){
-    sessionStorage.setItem("isLogin","yes");
-    location.href="dashboard.html";
-  }else{
-    alert("Wrong username or password");
-  }
-}
-</script>
